@@ -5,7 +5,7 @@ import Router from "next/router";
 import "nprogress/nprogress.css";
 
 NProgress.configure({
-  minimum: 0.3,
+  minimum: 0.9,
   easing: "ease",
   speed: 800,
   showSpinner: true,

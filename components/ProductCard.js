@@ -36,10 +36,12 @@ const Wrapper = styled.div`
   transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   line-height: 1;
   max-height: 500px;
+  border: thin solid white;
   :hover {
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    border: thin solid rgba(0, 118, 255, 0.9);
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
       rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
   }
 `;
 

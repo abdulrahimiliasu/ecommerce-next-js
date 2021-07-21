@@ -13,4 +13,10 @@ export async function fetchEntries(filter) {
   console.log(`Error getting Entries for ${contentType.name}.`);
 }
 
+export async function fetchEntry(id) {
+  const entry = await client.getEntry(id);
+  if (entry.fields) return entry.fields;
+  console.log(`Error getting Entry for id ${id}`);
+}
+
 export default { fetchEntries };

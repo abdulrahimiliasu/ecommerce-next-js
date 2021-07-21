@@ -14,7 +14,16 @@ export default function Home({ result }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ContentWrapper>
-        <FilterBox direction={"1"} />
+        <FilterBox
+          direction={"1"}
+          values={{
+            vname: "",
+            vprice_low: "",
+            vprice_high: "",
+            vcategory: "",
+            vcolor: "",
+          }}
+        />
         <ContentSection entries={result} />
       </ContentWrapper>
     </Wrapper>

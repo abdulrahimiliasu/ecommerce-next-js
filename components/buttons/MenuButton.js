@@ -10,8 +10,9 @@ export default function MenuButton(props) {
 }
 
 const MenuItem = styled.div`
-  color: white;
+  color: black;
   align-items: center;
+  justify-content: center;
   padding: 10px;
   border-radius: 10px;
   transition: 0.5s ease-out;

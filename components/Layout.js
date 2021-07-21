@@ -12,9 +12,5 @@ export default function Layout({ children }) {
   );
 }
 
-const Wrapper = styled.div`
-  overflow: hidden;
-`;
-const ContentWrapper = styled.div`
-  margin: 10px 0px;
-`;
+const Wrapper = styled.div``;
+const ContentWrapper = styled.div``;
