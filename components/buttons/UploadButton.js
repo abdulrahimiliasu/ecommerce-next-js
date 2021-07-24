@@ -2,9 +2,11 @@ import React, { useRef } from "react";
 import { firebaseInstance, updateUserProfileInfo } from "../../model/Firebase";
 import FormButton from "./FormButton";
 import cogoToast from "cogo-toast";
+import { useRouter } from "next/dist/client/router";
 
 const UploadButton = (props) => {
   const ref = useRef(null);
+  const router = useRouter();
   const handleClick = () => {
     if (ref) {
       return ref.current?.click();
@@ -35,6 +37,7 @@ const UploadButton = (props) => {
             hideAfter: 1,
           })
         );
+      // .then(router.reload("/account"));
     } catch (error) {
       cogoToast.error(error.message);
     }

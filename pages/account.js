@@ -1,12 +1,10 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { signOut, firebaseInstance } from "../model/Firebase";
-import Image from "next/image";
+import { firebaseInstance } from "../model/Firebase";
 import ProfileForm from "../components/forms/ProfileForm";
 import Link from "next/link";
 import cogoToast from "cogo-toast";
-import FormButton from "../components/buttons/FormButton";
-import UploadButton from "../components/buttons/UploadButton";
+import Loader from "../components/Loader";
 
 export default function Account() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -41,7 +39,7 @@ export default function Account() {
       {currentUser ? (
         <ContentWrapper>
           {userData == null ? (
-            <p>Loading ...</p>
+            <Loader />
           ) : (
             <ContentWrapper>
               <ProfileForm

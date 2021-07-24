@@ -12,6 +12,7 @@ export default function ProductCard(props) {
             src={"https:" + props.thumb_src}
             width={props.thumb_w}
             height={props.thumb_h}
+            alt="product image"
           />
         </ImageWrapper>
         <TextWrapper>
