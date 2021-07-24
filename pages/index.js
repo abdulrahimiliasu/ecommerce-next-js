@@ -32,7 +32,7 @@ export default function Home({ result }) {
 
 export const getStaticProps = async () => {
   const result = await fetchEntries({ content_type: "accessories" });
-  // const result = res.map((item) => ({`content`:{item.fields},{}));
+  console.log(process.env.FIREBASE_API_KEY);
   return {
     props: { result },
   };

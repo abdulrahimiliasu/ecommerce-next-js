@@ -4,6 +4,7 @@ import { fetchEntries } from "../../../data/Content";
 import styled from "styled-components";
 import FilterBox from "../../../components/forms/FilterBox";
 import React from "react";
+import Sticky from "react-stickynode";
 
 export default function Filter({ result, field_values, is_empty }) {
   return (
@@ -15,15 +16,17 @@ export default function Filter({ result, field_values, is_empty }) {
       </Head>
       <ContentWrapper>
         <FilterWrapper>
-          <FilterBox
-            values={{
-              vname: field_values.name,
-              vprice_low: field_values.price_low,
-              vprice_high: field_values.price_high,
-              vcategory: field_values.category,
-              vcolor: field_values.color,
-            }}
-          />
+          <Sticky enabled={true} top={0} bottomBoundary={0}>
+            <FilterBox
+              values={{
+                vname: field_values.name,
+                vprice_low: field_values.price_low,
+                vprice_high: field_values.price_high,
+                vcategory: field_values.category,
+                vcolor: field_values.color,
+              }}
+            />
+          </Sticky>
         </FilterWrapper>
         <Content>
           {is_empty ? (
@@ -40,19 +43,16 @@ export default function Filter({ result, field_values, is_empty }) {
 }
 
 const Wrapper = styled.div``;
-const ContentWrapper = styled.div``;
+const ContentWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 250px auto;
+`;
 
 const FilterWrapper = styled.div`
-  position: fixed;
   width: 250px;
 `;
 
-const Content = styled.div`
-  margin-left: 250px;
-  position: relative;
-  overflow: auto;
-  z-index: 1;
-`;
+const Content = styled.div``;
 
 const Empty = styled.div`
   display: flex;

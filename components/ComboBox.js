@@ -26,16 +26,12 @@ const Wrapper = styled.div`
 `;
 
 const Text = styled.p`
-  color: gray;
+  color: white;
   padding-right: 5px;
 `;
 
 const Combo = styled.select`
   background: white;
-  border-radius: 30px;
-  padding: 10px 20px;
-  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-  border: 1px solid gray;
   width: ${(props) => (props.width ? props.width : "200px")};
   font-size: 15px;
 `;

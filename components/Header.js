@@ -1,8 +1,24 @@
 import styled from "styled-components";
 import MenuButton from "./buttons/MenuButton";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { firebaseInstance } from "../model/Firebase";
 
 export default function Header() {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    if (firebaseInstance) {
+      firebaseInstance.auth().onAuthStateChanged((authUser) => {
+        if (authUser) {
+          setCurrentUser(authUser);
+        } else {
+          setCurrentUser(null);
+        }
+      });
+    }
+  }, []);
+
   return (
     <Wrapper>
       <Logo>
@@ -13,7 +29,16 @@ export default function Header() {
         </Link>
       </Logo>
       <Menu>
-        <MenuButton link="/" title="Home" />
+        {currentUser ? (
+          <ContentWrapper>
+            <MenuButton link="/account" title="Account" />
+          </ContentWrapper>
+        ) : (
+          <ContentWrapper>
+            <MenuButton link="/signin" title="Sign In" />
+            <MenuButton link="/signup" title="Sign Up" />
+          </ContentWrapper>
+        )}
         <MenuButton link="/" title="About" />
       </Menu>
     </Wrapper>
@@ -21,13 +46,23 @@ export default function Header() {
 }
 
 const Wrapper = styled.div`
+  background-color: #03256c;
   display: flex;
   padding: 15px 10px;
   align-items: center;
+  color: white;
   justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+  z-index: 2;
 `;
 
 const Logo = styled.div``;
 const Menu = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
+`;
+
+const ContentWrapper = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
 `;

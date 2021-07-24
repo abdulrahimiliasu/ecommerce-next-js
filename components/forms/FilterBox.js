@@ -16,9 +16,17 @@ export default function FilterBox(props) {
   return (
     <Wrapper direction={props.direction}>
       <TextWrapper direction={props.direction}>
-        <TextField placeholder="Name" hook={name} />
-        <TextField placeholder="Price: low" width="150px" hook={price_low} />
-        <TextField placeholder="Price: high" width="150px" hook={price_high} />
+        <TextFieldFilter placeholder="Name" hook={name} />
+        <TextFieldFilter
+          placeholder="Price: low"
+          width="150px"
+          hook={price_low}
+        />
+        <TextFieldFilter
+          placeholder="Price: high"
+          width="150px"
+          hook={price_high}
+        />
         <ComboBox
           options={["Any", "Red", "Blue", "Green"]}
           hook={color}
@@ -34,6 +42,7 @@ export default function FilterBox(props) {
       </TextWrapper>
       <ButtonWrapper>
         <SecondaryButton
+          color="#FF6D00"
           width="200px"
           link={`/products/search/[filter]`}
           as={`/products/search/name=${name.value}&price_low=${price_low.value}&price_high=${price_high.value}&category=${category.value}&color=${color.value}`}
@@ -45,12 +54,12 @@ export default function FilterBox(props) {
 }
 
 const Wrapper = styled.div`
+  background-color: #2541b2;
   display: flex;
   justify-content: space-around;
   padding: 30px;
   flex-wrap: wrap;
-  height: ${(props) => (props.direction ? "100px" : "100vh")};
-  background-color: #f0f0f0;
+  height: ${(props) => (props.direction ? "100px" : "100%")};
 `;
 
 const TextWrapper = styled.div`
@@ -62,4 +71,17 @@ const TextWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   padding: 10px;
+`;
+
+const TextFieldFilter = styled.input`
+  background: white;
+  border-radius: 10px;
+  padding: 10px 20px;
+  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  border: 1px solid gray;
+  width: ${(props) => (props.width ? props.width : "200px")};
+  font-size: 15px;
+  :focus {
+    border: 5px solid #ffab40;
+  }
 `;

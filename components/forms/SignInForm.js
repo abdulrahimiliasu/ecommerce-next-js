@@ -1,36 +1,69 @@
-import React from "react"
-import styled from "styled-components"
-import TextField from "../TextField"
-import useInput from "../hooks/useInput"
+import React from "react";
+import styled from "styled-components";
+import getFirebase from "../../model/Firebase";
+import useInput from "../hooks/useInput";
+import cogoToast from "cogo-toast";
+import TextField from "../TextField";
+import { useRouter } from "next/dist/client/router";
+import FormButton from "../buttons/FormButton";
 
 const SignInForm = () => {
-  const email = useInput("")
-  const password = useInput("")
+  const firebaseInstance = getFirebase();
+  const email = useInput("");
+  const password = useInput("");
+  const router = useRouter();
 
-  const submitForm = event => {
-    event.preventDefault()
-    console.log("email", email.value)
-    console.log("password", password.value)
-  }
+  const signIn = async (event) => {
+    event.preventDefault();
+    if (email.value === "" || password.value === "")
+      cogoToast.error("Email or Password Cannot be empty!");
+    try {
+      if (firebaseInstance) {
+        const user = await firebaseInstance
+          .auth()
+          .signInWithEmailAndPassword(email.value, password.value);
+        cogoToast.success("Successfully Logged In");
+        router.push("/account");
+      }
+    } catch (error) {
+      cogoToast.error(error.message);
+    }
+  };
 
   return (
-    <FormWrapper onSubmit={submitForm}>
-      <Title>Sign in</Title>
-      <TextField placeholder="Email" hook={email} />
-      <TextField placeholder="Password" type="password" hook={password} />
-      <Button type="submit">Sign in</Button>
-    </FormWrapper>
-  )
-}
+    <Wrapper>
+      <FormWrapper onSubmit={signIn}>
+        <Title>Sign in</Title>
+        <TextField
+          placeholder="Email"
+          type="Email"
+          hook={email}
+          width="300px"
+        />
+        <TextField
+          placeholder="Password"
+          type="password"
+          hook={password}
+          width="300px"
+        />
+        <FormButton type="submit" title="Sign in" />
+      </FormWrapper>
+    </Wrapper>
+  );
+};
 
-export default SignInForm
+export default SignInForm;
+
+const Wrapper = styled.div`
+  height: 100vh;
+`;
 
 const FormWrapper = styled.form`
   display: grid;
   justify-content: center;
   gap: 20px;
   padding-bottom: 50px;
-`
+`;
 
 const Title = styled.h1`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -39,21 +72,6 @@ const Title = styled.h1`
   font-weight: bold;
   font-size: 40px;
   line-height: 48px;
-  color: black;
+  color: #000;
   text-align: center;
-`
-
-const Button = styled.button`
-  background: linear-gradient(91.4deg, #2fb8ff 0%, #9eecd9 100%);
-  padding: 12px 0;
-  width: 200px;
-  border: none;
-  border-radius: 30px;
-  color: white;
-  font-weight: bold;
-  font-family: Segoe UI, sans-serif;
-  cursor: pointer;
-  :focus {
-    outline: none;
-  }
-`
+`;
