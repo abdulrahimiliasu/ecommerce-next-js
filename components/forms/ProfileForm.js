@@ -3,7 +3,8 @@ import useInput from "../hooks/useInput";
 import { updateUserProfileInfo, signOut } from "../../model/firebase/Firebase";
 import FormButton from "../buttons/FormButton";
 import UploadButton from "../buttons/UploadButton";
-import Image from "next/image";
+// import Image from "next/image";
+import Image from "next/dist/client/image";
 import cogoToast from "cogo-toast";
 
 export default function ProfileForm(props) {
