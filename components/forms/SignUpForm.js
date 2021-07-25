@@ -13,21 +13,39 @@ export default function SignUpForm() {
   const password = useInput("");
   const router = useRouter();
 
+  const sendEmailVerification = () => {
+    firebaseInstance
+      .auth()
+      .currentUser.sendEmailVerification()
+      .then(() => {
+        cogoToast.success(
+          "Successfully created account please verify your email to continue",
+          {
+            position: "top-left",
+          }
+        );
+      });
+  };
+
   const submitForm = async (event) => {
     event.preventDefault();
-    try {
-      if (firebaseInstance) {
-        const user = await firebaseInstance
-          .auth()
-          .createUserWithEmailAndPassword(email.value, password.value);
-        addUserProfileInfo(user.user.uid);
-        cogoToast.success("Successfully created account", {
-          position: "top-left",
-        });
-        router.push("/account");
+    if (email.value == "" || password.value == "") {
+      cogoToast.error("Email or Password Cannot be Empty");
+    } else {
+      try {
+        if (firebaseInstance) {
+          await firebaseInstance
+            .auth()
+            .createUserWithEmailAndPassword(email.value, password.value)
+            .then((userCredentials) => {
+              addUserProfileInfo(userCredentials.user.uid);
+              sendEmailVerification();
+              router.push("/account");
+            });
+        }
+      } catch (error) {
+        cogoToast.error(error.message, { position: "top-left" });
       }
-    } catch (error) {
-      cogoToast.error(error.message, { position: "top-left" });
     }
   };
 

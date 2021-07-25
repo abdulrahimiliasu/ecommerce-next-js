@@ -13,20 +13,38 @@ const SignInForm = () => {
   const password = useInput("");
   const router = useRouter();
 
+  const forgotPassword = () => {
+    firebaseInstance
+      .auth()
+      .sendPasswordResetEmail(email.value)
+      .then(() => {
+        cogoToast.success("Password reset email sent!");
+      })
+      .catch((error) => {
+        cogoToast.error(error.message);
+      });
+  };
+
   const signIn = async (event) => {
     event.preventDefault();
     if (email.value === "" || password.value === "")
       cogoToast.error("Email or Password Cannot be empty!");
-    try {
-      if (firebaseInstance) {
-        const user = await firebaseInstance
-          .auth()
-          .signInWithEmailAndPassword(email.value, password.value);
-        cogoToast.success("Successfully Logged In");
-        router.push("/account");
+    else {
+      try {
+        if (firebaseInstance) {
+          await firebaseInstance
+            .auth()
+            .signInWithEmailAndPassword(email.value, password.value)
+            .then((authUser) => {
+              if (authUser) {
+                cogoToast.success("Successfully Logged In");
+                router.push("/account");
+              }
+            });
+        }
+      } catch (error) {
+        cogoToast.error(error.message);
       }
-    } catch (error) {
-      cogoToast.error(error.message);
     }
   };
 
@@ -47,6 +65,7 @@ const SignInForm = () => {
           width="300px"
         />
         <FormButton type="submit" title="Sign in" />
+        <FormButton title="Forgot password" onClick={forgotPassword} />
       </FormWrapper>
     </Wrapper>
   );

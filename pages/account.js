@@ -42,11 +42,15 @@ export default function Account() {
             <Loader />
           ) : (
             <ContentWrapper>
-              <ProfileForm
-                data={userData}
-                email={currentUser.email}
-                user_id={currentUser.uid}
-              />
+              {currentUser.emailVerified ? (
+                <ProfileForm
+                  data={userData}
+                  email={currentUser.email}
+                  user_id={currentUser.uid}
+                />
+              ) : (
+                <h1>Account NOT verified</h1>
+              )}
             </ContentWrapper>
           )}
         </ContentWrapper>
@@ -63,12 +67,6 @@ export default function Account() {
 
 const Wrapper = styled.div`
   height: 100vh;
-`;
-
-const LinkText = styled.p`
-  color: blue;
-  text-decoration: underline;
-  cursor: pointer;
 `;
 
 const ContentWrapper = styled.div`

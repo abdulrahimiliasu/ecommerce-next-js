@@ -13,12 +13,19 @@ export default function ProfileForm(props) {
 
   return (
     <Wrapper>
-      <Image
-        src={props.data.avatar_url}
-        width={200}
-        height={200}
-        alt="profile picture"
-      />
+      <ImageWrapper>
+        <Image
+          src={props.data.avatar_url}
+          layout="fill"
+          alt="profile picture"
+          priority={true}
+          loading="eager"
+          blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+          placeholder="blur"
+          className="pp"
+        />
+      </ImageWrapper>
+
       <UploadButton user_id={props.user_id} />
       <hr />
       <FormWrapper>
@@ -65,11 +72,27 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+
+  & .pp {
+    border-radius: 50%;
+  }
 `;
 
 const FormWrapper = styled.div`
   display: grid;
   grid-template-columns: 150px auto;
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  padding: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+  z-index: -1;
 `;
 
 const TextFieldForm = styled.input`
