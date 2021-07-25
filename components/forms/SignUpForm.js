@@ -5,7 +5,10 @@ import useInput from "../hooks/useInput";
 import cogoToast from "cogo-toast";
 import Link from "next/link";
 import { useRouter } from "next/dist/client/router";
-import { firebaseInstance, addUserProfileInfo } from "../../model/Firebase";
+import {
+  firebaseInstance,
+  addUserProfileInfo,
+} from "../../model/firebase/Firebase";
 import FormButton from "../buttons/FormButton";
 
 export default function SignUpForm() {

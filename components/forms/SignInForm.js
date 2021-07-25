@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import getFirebase from "../../model/Firebase";
+import getFirebase from "../../model/firebase/Firebase";
 import useInput from "../hooks/useInput";
 import cogoToast from "cogo-toast";
 import TextField from "../TextField";
