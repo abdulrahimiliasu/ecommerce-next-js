@@ -21,7 +21,8 @@ export default function ProfileForm(props) {
       <ImageWrapper>
         <Image
           src={props.data.avatar_url}
-          layout="fill"
+          width={220}
+          height={220}
           alt="profile picture"
           className="pp"
         />

@@ -39,7 +39,6 @@ export default function Header() {
             <MenuButton link="/signup" title="Sign Up" />
           </ContentWrapper>
         )}
-        <MenuButton link="/" title="About" />
       </Menu>
     </Wrapper>
   );

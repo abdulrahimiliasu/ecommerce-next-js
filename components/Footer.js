@@ -4,38 +4,29 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <Wrapper>
-      <Section>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
-        <Link href="/">
-          <a>About</a>
-        </Link>
-      </Section>
-      <Section>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
-        <Link href="/">
-          <a>About</a>
-        </Link>
-      </Section>
+      <Link href="/">
+        <a>Home</a>
+      </Link>
+      <Link href="/account">
+        <a>Account</a>
+      </Link>
+      <Link href="/signin">
+        <a>Sign In</a>
+      </Link>
+      <Link href="/signup">
+        <a>Sign Up</a>
+      </Link>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  background-color: #06bee1;
-  color: white;
-  width: 100%;
-  height: 100px;
-  display: grid;
-  grid-template-columns: auto auto auto;
-  justify-content: flex-end;
-`;
-
-const Section = styled.div`
+  background-color: black;
   padding: 20px;
+  color: white;
+  height: 50px;
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: auto auto auto auto;
+  justify-content: flex-end;
+  gap: 20px;
 `;

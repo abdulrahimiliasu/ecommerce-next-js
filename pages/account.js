@@ -62,7 +62,9 @@ export default function Account() {
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  overflow-x: hidden;
+`;
 
 const ContentWrapper = styled.div`
   display: flex;

@@ -21,7 +21,7 @@ const Input = styled.input`
   width: ${(props) => (props.width ? props.width : "200px")};
   font-size: 15px;
   :focus {
-    outline: none;
+    border: 5px solid #ffab40;
     box-shadow: 0px 20px 40px rgba(31, 47, 71, 0.25),
       0px 1px 5px rgba(0, 0, 0, 0.1), inset 0 0 0 0.5px rgba(255, 255, 255, 0.4);
     border: 1px solid rgba(250, 250, 250, 0.4);
