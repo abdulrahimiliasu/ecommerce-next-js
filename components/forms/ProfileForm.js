@@ -4,12 +4,17 @@ import { updateUserProfileInfo, signOut } from "../../model/firebase/Firebase";
 import FormButton from "../buttons/FormButton";
 import UploadButton from "../buttons/UploadButton";
 import Image from "next/image";
+import cogoToast from "cogo-toast";
 
 export default function ProfileForm(props) {
   const fname = useInput(props.data.first_name);
   const lname = useInput(props.data.last_name);
   const address_ = useInput(props.data.address);
   const age_ = useInput(props.data.age);
+  if (!props.account_verified)
+    cogoToast.warn("Please check your email inbox for verification.", {
+      heading: "Account Not Verified !",
+    });
 
   return (
     <Wrapper>

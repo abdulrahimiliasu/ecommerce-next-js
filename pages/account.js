@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { firebaseInstance } from "../model/Firebase";
+import { firebaseInstance } from "../model/firebase/Firebase";
 import ProfileForm from "../components/forms/ProfileForm";
 import Link from "next/link";
 import cogoToast from "cogo-toast";
@@ -42,15 +42,12 @@ export default function Account() {
             <Loader />
           ) : (
             <ContentWrapper>
-              {currentUser.emailVerified ? (
-                <ProfileForm
-                  data={userData}
-                  email={currentUser.email}
-                  user_id={currentUser.uid}
-                />
-              ) : (
-                <h1>Account NOT verified</h1>
-              )}
+              <ProfileForm
+                data={userData}
+                email={currentUser.email}
+                user_id={currentUser.uid}
+                account_verified={currentUser.emailVerified}
+              />
             </ContentWrapper>
           )}
         </div>

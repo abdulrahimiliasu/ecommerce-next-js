@@ -2,7 +2,7 @@ import styled from "styled-components";
 import MenuButton from "./buttons/MenuButton";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { firebaseInstance } from "../model/Firebase";
+import { firebaseInstance } from "../model/firebase/Firebase";
 
 export default function Header() {
   const [currentUser, setCurrentUser] = useState(null);
