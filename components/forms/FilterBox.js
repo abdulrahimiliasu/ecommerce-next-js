@@ -59,7 +59,7 @@ const Wrapper = styled.div`
   justify-content: space-around;
   padding: 30px;
   flex-wrap: wrap;
-  height: ${(props) => (props.direction ? "100px" : "100%")};
+  height: 100%;
 `;
 
 const TextWrapper = styled.div`
@@ -80,6 +80,11 @@ const TextFieldFilter = styled.input`
   transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   border: 1px solid gray;
   width: ${(props) => (props.width ? props.width : "200px")};
+  height: 50px;
+  @media only screen and (max-width: 600px) {
+    height: 35px;
+    width: 100%;
+  }
   font-size: 15px;
   :focus {
     border: 5px solid #ffab40;

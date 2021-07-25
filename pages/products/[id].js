@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { fetchEntry } from "../../data/Content";
 import Gallery from "react-grid-gallery";
-// import AwesomeSlider from "react-awesome-slider";
-// // import CoreStyles from "react-awesome-slider/src/core/styles.scss";
 import Sticky from "react-stickynode";
 
 export default function Product({ result, images }) {
@@ -29,12 +27,17 @@ export default function Product({ result, images }) {
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: auto 350px;
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: auto;
+  }
 `;
 
 const DetailsWrapper = styled.div`
   width: 350px;
   padding: 20px;
-  border-radius: 20px;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const ContentWrapper = styled.div`

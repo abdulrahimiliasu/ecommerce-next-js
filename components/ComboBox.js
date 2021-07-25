@@ -22,16 +22,21 @@ export default function ComboBox(props) {
 }
 
 const Wrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 100px auto;
 `;
 
 const Text = styled.p`
   color: white;
-  padding-right: 5px;
 `;
 
 const Combo = styled.select`
   background: white;
+  height: 50px;
+  @media only screen and (max-width: 600px) {
+    height: 35px;
+    width: 100px;
+  }
   width: ${(props) => (props.width ? props.width : "200px")};
   font-size: 15px;
 `;

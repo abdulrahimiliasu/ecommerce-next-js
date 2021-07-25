@@ -25,29 +25,27 @@ export default function ProfileForm(props) {
           className="pp"
         />
       </ImageWrapper>
-
+      <p>{props.email}</p>
       <UploadButton user_id={props.user_id} />
       <hr />
-      <FormWrapper>
-        <p>Email: </p>
-        <p>{props.email}</p>
-      </FormWrapper>
-      <FormWrapper>
-        <p>First Name: </p>
-        <TextFieldForm {...fname} />
-      </FormWrapper>
-      <FormWrapper>
-        <p>Last Name: </p>
-        <TextFieldForm {...lname} />
-      </FormWrapper>
-      <FormWrapper>
-        <p>Address: </p>
-        <TextFieldForm {...address_} />
-      </FormWrapper>
-      <FormWrapper>
-        <p>Age: </p>
-        <TextFieldForm {...age_} />
-      </FormWrapper>
+      <ContentWrapper>
+        <FormWrapper>
+          <p>First Name: </p>
+          <TextFieldForm {...fname} />
+        </FormWrapper>
+        <FormWrapper>
+          <p>Last Name: </p>
+          <TextFieldForm {...lname} />
+        </FormWrapper>
+        <FormWrapper>
+          <p>Address: </p>
+          <TextFieldForm {...address_} />
+        </FormWrapper>
+        <FormWrapper>
+          <p>Age: </p>
+          <TextFieldForm {...age_} />
+        </FormWrapper>
+      </ContentWrapper>
       <FormButton
         onClick={() =>
           updateUserProfileInfo(props.user_id, {
@@ -80,7 +78,14 @@ const Wrapper = styled.div`
 
 const FormWrapper = styled.div`
   display: grid;
-  grid-template-columns: 150px auto;
+  grid-template-columns: 100px auto;
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: auto;
+  }
+`;
+
+const ContentWrapper = styled.div`
+  padding: 10px;
 `;
 
 const ImageWrapper = styled.div`
@@ -102,6 +107,10 @@ const TextFieldForm = styled.input`
   transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   border: 1px solid gray;
   width: ${(props) => (props.width ? props.width : "200px")};
+  @media only screen and (max-width: 600px) {
+    height: 35px;
+    width: 100%;
+  }
   font-size: 15px;
   :focus {
     border: 5px solid #ffab40;

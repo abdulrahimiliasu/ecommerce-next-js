@@ -37,7 +37,7 @@ export default function Account() {
   return (
     <Wrapper>
       {currentUser ? (
-        <ContentWrapper>
+        <div>
           {userData == null ? (
             <Loader />
           ) : (
@@ -53,7 +53,7 @@ export default function Account() {
               )}
             </ContentWrapper>
           )}
-        </ContentWrapper>
+        </div>
       ) : (
         <Link href="/signin">
           <a>
@@ -65,9 +65,7 @@ export default function Account() {
   );
 }
 
-const Wrapper = styled.div`
-  height: 100vh;
-`;
+const Wrapper = styled.div``;
 
 const ContentWrapper = styled.div`
   display: flex;

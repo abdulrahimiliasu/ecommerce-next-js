@@ -12,6 +12,10 @@ export default function Home({ result }) {
         <title>Accessorys</title>
         <meta name="description" content="An Accessories Ecommerce Site." />
         <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta>
       </Head>
       <ContentWrapper>
         <FilterBox

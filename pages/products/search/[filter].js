@@ -46,10 +46,17 @@ const Wrapper = styled.div``;
 const ContentWrapper = styled.div`
   display: grid;
   grid-template-columns: 250px auto;
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: auto;
+  }
 `;
 
 const FilterWrapper = styled.div`
   width: 250px;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+    z-index: 2;
+  }
 `;
 
 const Content = styled.div``;
