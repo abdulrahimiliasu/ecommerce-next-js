@@ -20,10 +20,10 @@ export default function ProfileForm(props) {
   return (
     <Wrapper>
       <ImageWrapper>
-        <Image
+        <img
           src={props.data.avatar_url}
-          width={220}
-          height={220}
+          width={200}
+          height={200}
           alt="profile picture"
           className="pp"
         />
@@ -93,6 +93,9 @@ const ContentWrapper = styled.div`
 
 const ImageWrapper = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 200px;
   height: 200px;
   border-radius: 50%;
@@ -116,6 +119,7 @@ const TextFieldForm = styled.input`
   }
   font-size: 15px;
   :focus {
-    border: 5px solid #ffab40;
+    outline: none;
+    border: thin solid #ffab40;
   }
 `;

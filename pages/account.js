@@ -52,11 +52,13 @@ export default function Account() {
           )}
         </div>
       ) : (
-        <Link href="/signin">
-          <a>
-            <h1>Please log in to access your account</h1>
-          </a>
-        </Link>
+        <Empty>
+          <Link href="/signin">
+            <a>
+              <h2>Please Sign in to access your account</h2>
+            </a>
+          </Link>
+        </Empty>
       )}
     </Wrapper>
   );
@@ -71,4 +73,11 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
+`;
+
+const Empty = styled.div`
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
 `;

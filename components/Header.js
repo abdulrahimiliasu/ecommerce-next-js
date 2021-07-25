@@ -24,7 +24,7 @@ export default function Header() {
       <Logo>
         <Link href="/">
           <a>
-            <h2>Accessorys</h2>
+            <h2>accessorys</h2>
           </a>
         </Link>
       </Logo>
@@ -55,7 +55,9 @@ const Wrapper = styled.div`
   z-index: 2;
 `;
 
-const Logo = styled.div``;
+const Logo = styled.div`
+  padding: 0px 10px;
+`;
 const Menu = styled.div`
   display: grid;
   grid-template-columns: auto auto;

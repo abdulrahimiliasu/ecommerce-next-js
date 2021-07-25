@@ -86,6 +86,7 @@ const TextFieldFilter = styled.input`
   }
   font-size: 15px;
   :focus {
-    border: 5px solid #ffab40;
+    outline: none;
+    border: thin solid #ffab40;
   }
 `;
