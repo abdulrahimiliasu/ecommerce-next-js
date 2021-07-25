@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import useInput from "../hooks/useInput";
-import { updateUserProfileInfo, signOut } from "../../model/Firebase";
+import { updateUserProfileInfo, signOut } from "../../model/firebase/Firebase";
 import FormButton from "../buttons/FormButton";
 import UploadButton from "../buttons/UploadButton";
 import Image from "next/image";
@@ -18,10 +18,6 @@ export default function ProfileForm(props) {
           src={props.data.avatar_url}
           layout="fill"
           alt="profile picture"
-          priority={true}
-          loading="eager"
-          blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
-          placeholder="blur"
           className="pp"
         />
       </ImageWrapper>

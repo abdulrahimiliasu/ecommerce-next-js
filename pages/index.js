@@ -1,6 +1,6 @@
 import Head from "next/head";
 import ContentSection from "../components/sections/ContentSection";
-import { fetchEntries } from "../data/Content";
+import { fetchEntries } from "../model/contentful/Contentful";
 import styled from "styled-components";
 import FilterBox from "../components/forms/FilterBox";
 

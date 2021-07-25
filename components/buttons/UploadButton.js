@@ -1,5 +1,8 @@
 import React, { useRef } from "react";
-import { firebaseInstance, updateUserProfileInfo } from "../../model/Firebase";
+import {
+  firebaseInstance,
+  updateUserProfileInfo,
+} from "../../model/firebase/Firebase";
 import FormButton from "./FormButton";
 import cogoToast from "cogo-toast";
 import { useRouter } from "next/dist/client/router";

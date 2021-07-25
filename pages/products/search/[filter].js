@@ -1,6 +1,6 @@
 import Head from "next/head";
 import ContentSection from "../../../components/sections/ContentSection";
-import { fetchEntries } from "../../../data/Content";
+import { fetchEntries } from "../../../model/contentful/Contentful";
 import styled from "styled-components";
 import FilterBox from "../../../components/forms/FilterBox";
 import React from "react";
@@ -54,8 +54,7 @@ const ContentWrapper = styled.div`
 const FilterWrapper = styled.div`
   width: 250px;
   @media only screen and (max-width: 600px) {
-    width: 100%;
-    z-index: 2;
+    display: none;
   }
 `;
 

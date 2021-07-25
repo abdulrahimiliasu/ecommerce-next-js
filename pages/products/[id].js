@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { fetchEntry } from "../../data/Content";
+import { fetchEntry } from "../../model/contentful/Contentful";
 import Gallery from "react-grid-gallery";
 import Sticky from "react-stickynode";
 
