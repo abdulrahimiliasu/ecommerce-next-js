@@ -3,8 +3,7 @@ import useInput from "../hooks/useInput";
 import { updateUserProfileInfo, signOut } from "../../model/firebase/Firebase";
 import FormButton from "../buttons/FormButton";
 import UploadButton from "../buttons/UploadButton";
-// import Image from "next/image";
-import Image from "next/dist/client/image";
+import { useState } from "react";
 import cogoToast from "cogo-toast";
 
 export default function ProfileForm(props) {
@@ -12,6 +11,8 @@ export default function ProfileForm(props) {
   const lname = useInput(props.data.last_name);
   const address_ = useInput(props.data.address);
   const age_ = useInput(props.data.age);
+  const [editMode, setEditMode] = useState(true);
+
   if (!props.account_verified)
     cogoToast.warn("Please check your email inbox for verification.", {
       heading: "Account Not Verified !",
@@ -34,32 +35,37 @@ export default function ProfileForm(props) {
       <ContentWrapper>
         <FormWrapper>
           <p>First Name: </p>
-          <TextFieldForm {...fname} />
+          <TextFieldForm {...fname} disabled={editMode} />
         </FormWrapper>
         <FormWrapper>
           <p>Last Name: </p>
-          <TextFieldForm {...lname} />
+          <TextFieldForm {...lname} disabled={editMode} />
         </FormWrapper>
         <FormWrapper>
           <p>Address: </p>
-          <TextFieldForm {...address_} />
+          <TextFieldForm {...address_} disabled={editMode} />
         </FormWrapper>
         <FormWrapper>
           <p>Age: </p>
-          <TextFieldForm {...age_} />
+          <TextFieldForm {...age_} disabled={editMode} />
         </FormWrapper>
       </ContentWrapper>
       <FormButton
-        onClick={() =>
-          updateUserProfileInfo(props.user_id, {
-            first_name: fname.value,
-            last_name: lname.value,
-            address: address_.value,
-            age: age_.value,
-            avatar_url: props.data.avatar_url,
-          })
-        }
-        title="Save"
+        onClick={() => {
+          if (editMode) {
+            setEditMode(!editMode);
+          } else {
+            updateUserProfileInfo(props.user_id, {
+              first_name: fname.value,
+              last_name: lname.value,
+              address: address_.value,
+              age: age_.value,
+              avatar_url: props.data.avatar_url,
+            });
+            setEditMode(!editMode);
+          }
+        }}
+        title={editMode ? "Edit" : "Save"}
       />
       <FormButton onClick={() => signOut()} title="Sign out" />
     </Wrapper>

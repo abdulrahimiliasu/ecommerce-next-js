@@ -54,7 +54,7 @@ const SignInForm = () => {
         <Title>Sign in</Title>
         <TextField
           placeholder="Email"
-          type="Email"
+          type="email"
           hook={email}
           width="300px"
         />

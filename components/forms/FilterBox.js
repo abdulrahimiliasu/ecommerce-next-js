@@ -15,16 +15,16 @@ export default function FilterBox(props) {
   return (
     <Wrapper direction={props.direction}>
       <TextWrapper direction={props.direction}>
-        <TextFieldFilter placeholder="Name" hook={name} />
+        <TextFieldFilter placeholder="Name" {...name} type="search" />
         <TextFieldFilter
           placeholder="Price: low"
           width="150px"
-          hook={price_low}
+          {...price_low}
         />
         <TextFieldFilter
           placeholder="Price: high"
           width="150px"
-          hook={price_high}
+          {...price_high}
         />
         <ComboBox
           options={["Any", "Red", "Blue", "Green"]}

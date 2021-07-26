@@ -4,7 +4,7 @@ import { firebaseInstance } from "../model/firebase/Firebase";
 import ProfileForm from "../components/forms/ProfileForm";
 import Link from "next/link";
 import cogoToast from "cogo-toast";
-import Loader from "../components/Loader";
+import ReactLoading from "react-loading";
 
 export default function Account() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -39,7 +39,9 @@ export default function Account() {
       {currentUser ? (
         <div>
           {userData == null ? (
-            <Loader />
+            <Empty>
+              <ReactLoading type="bubbles" color="black" />
+            </Empty>
           ) : (
             <ContentWrapper>
               <ProfileForm

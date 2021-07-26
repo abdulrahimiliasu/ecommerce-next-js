@@ -3,7 +3,11 @@ import styled from "styled-components";
 export default function FormButton(props) {
   return (
     <Wrapper>
-      <Button type={props.type} onClick={props.onClick}>
+      <Button
+        type={props.type}
+        onClick={props.onClick}
+        disabled={props.disabled}
+      >
         {props.title}
       </Button>
     </Wrapper>
