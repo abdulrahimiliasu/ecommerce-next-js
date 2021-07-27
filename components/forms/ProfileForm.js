@@ -4,7 +4,6 @@ import { updateUserProfileInfo, signOut } from "../../model/firebase/Firebase";
 import FormButton from "../buttons/FormButton";
 import UploadButton from "../buttons/UploadButton";
 import { useState } from "react";
-import cogoToast from "cogo-toast";
 
 export default function ProfileForm(props) {
   const fname = useInput(props.data.first_name);
@@ -12,11 +11,6 @@ export default function ProfileForm(props) {
   const address_ = useInput(props.data.address);
   const age_ = useInput(props.data.age);
   const [editMode, setEditMode] = useState(true);
-
-  if (!props.account_verified)
-    cogoToast.warn("Please check your email inbox for verification.", {
-      heading: "Account Not Verified !",
-    });
 
   return (
     <Wrapper>

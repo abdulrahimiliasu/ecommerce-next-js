@@ -6,12 +6,15 @@ import cogoToast from "cogo-toast";
 import TextField from "../TextField";
 import { useRouter } from "next/dist/client/router";
 import FormButton from "../buttons/FormButton";
+import { useState } from "react";
+import ReactLoading from "react-loading";
 
 const SignInForm = () => {
   const firebaseInstance = getFirebase();
   const email = useInput("");
   const password = useInput("");
   const router = useRouter();
+  const [signingIn, setSigningIn] = useState(false);
 
   const forgotPassword = () => {
     firebaseInstance
@@ -30,6 +33,7 @@ const SignInForm = () => {
     if (email.value === "" || password.value === "")
       cogoToast.error("Email or Password Cannot be empty!");
     else {
+      setSigningIn(true);
       try {
         if (firebaseInstance) {
           await firebaseInstance
@@ -44,6 +48,7 @@ const SignInForm = () => {
         }
       } catch (error) {
         cogoToast.error(error.message);
+        setSigningIn(false);
       }
     }
   };
@@ -64,8 +69,14 @@ const SignInForm = () => {
           hook={password}
           width="300px"
         />
-        <FormButton type="submit" title="Sign in" />
+        <FormButton
+          type="submit"
+          title={signingIn ? "Signinig In" : "Sign in"}
+        />
         <FormButton title="Forgot password" onClick={forgotPassword} />
+        <Center>
+          {signingIn ? <ReactLoading color="black" type="bars" /> : <></>}
+        </Center>
       </FormWrapper>
     </Wrapper>
   );
@@ -82,6 +93,12 @@ const FormWrapper = styled.form`
   justify-content: center;
   gap: 20px;
   padding-bottom: 50px;
+`;
+
+const Center = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Title = styled.h1`

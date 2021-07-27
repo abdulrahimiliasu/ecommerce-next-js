@@ -22,7 +22,7 @@ export default function Account() {
             userRef.get().then((doc) => {
               doc.exists
                 ? setUserData(doc.data())
-                : cogoToast.error("Could not retruve user data");
+                : cogoToast.error("Could not retrive user data");
             });
           } catch (error) {
             cogoToast.error(error.message);
@@ -44,11 +44,18 @@ export default function Account() {
             </Empty>
           ) : (
             <ContentWrapper>
+              {currentUser.emailVerified ? (
+                <></>
+              ) : (
+                <Warn>
+                  <p>Account not verified, please check your email inbox !</p>
+                </Warn>
+              )}
+
               <ProfileForm
                 data={userData}
                 email={currentUser.email}
                 user_id={currentUser.uid}
-                account_verified={currentUser.emailVerified}
               />
             </ContentWrapper>
           )}
@@ -75,6 +82,13 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
+`;
+
+const Warn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
 `;
 
 const Empty = styled.div`

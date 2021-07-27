@@ -10,11 +10,14 @@ import {
   addUserProfileInfo,
 } from "../../model/firebase/Firebase";
 import FormButton from "../buttons/FormButton";
+import { useState } from "react";
+import ReactLoading from "react-loading";
 
 export default function SignUpForm() {
   const email = useInput("");
   const password = useInput("");
   const router = useRouter();
+  const [signingUp, setSigningUp] = useState(false);
 
   const sendEmailVerification = () => {
     firebaseInstance
@@ -35,6 +38,7 @@ export default function SignUpForm() {
     if (email.value == "" || password.value == "") {
       cogoToast.error("Email or Password Cannot be Empty");
     } else {
+      setSigningUp(true);
       try {
         if (firebaseInstance) {
           await firebaseInstance
@@ -48,6 +52,7 @@ export default function SignUpForm() {
         }
       } catch (error) {
         cogoToast.error(error.message, { position: "top-left" });
+        setSigningUp(false);
       }
     }
   };
@@ -67,7 +72,13 @@ export default function SignUpForm() {
           <Text>Already have an account ?</Text>
         </a>
       </Link>
-      <FormButton type="submit" title="Create account" />
+      <FormButton
+        type="submit"
+        title={signingUp ? "Creating Account ..." : "Create account"}
+      />
+      <Center>
+        {signingUp ? <ReactLoading color="black" type="bars" /> : <></>}
+      </Center>
     </FormWrapper>
   );
 }
@@ -88,6 +99,12 @@ const Title = styled.h1`
   line-height: 48px;
   color: black;
   text-align: center;
+`;
+
+const Center = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Text = styled.p`
