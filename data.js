@@ -14,3 +14,10 @@ export const filterCategories = [
   { value: "Accessories", label: "Accessories" },
   { value: "Hoodies", label: "Hoodies" },
 ];
+
+export const filterSortOptions = [
+  { value: "name_ASC", label: "name ascending" },
+  { value: "name_DESC", label: "name descending" },
+  { value: "price_ASC", label: "price low-high" },
+  { value: "price_DESC", label: "price high-low" },
+];

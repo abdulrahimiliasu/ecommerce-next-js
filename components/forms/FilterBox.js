@@ -3,28 +3,17 @@ import React, { useState } from "react";
 import SecondaryButton from "../buttons/SecondaryButton";
 import useInput from "../hooks/useInput";
 import Select from "react-select";
-import { filterPrices, filterCategories, customStyles } from "../../data";
+import { filterPrices, filterCategories, filterSortOptions } from "../../data";
+import useSelect from "../hooks/useSelect";
 
 export default function FilterBox(props) {
   let { vname, vprice_low, vprice_high, vcategory } = props.values;
 
   const name = useInput(vname);
-  const [price_low, setPrice_Low] = useState(vprice_low);
-  const [price_high, setPrice_High] = useState(vprice_high);
-  const [category, setCategory] = useState(vcategory);
-
-  const setPriceHigh = (obj) => {
-    setPrice_High(obj.value);
-    vprice_high = obj.value;
-  };
-  const setPriceLow = (obj) => {
-    setPrice_Low(obj.value);
-    vprice_low = obj.value;
-  };
-  const setCategories = (obj) => {
-    setCategory(obj.value);
-    vcategory = obj.value;
-  };
+  const sort = useSelect("name_ASC");
+  const price_low = useSelect(vprice_low);
+  const price_high = useSelect(vprice_high);
+  const category = useSelect(vcategory);
 
   return (
     <Wrapper direction={props.direction}>
@@ -35,8 +24,7 @@ export default function FilterBox(props) {
             options={filterPrices}
             placeholder="Price Low"
             isSearchable={true}
-            onChange={setPriceLow}
-            defaultValue=""
+            {...price_low}
           />
         </SelectWrapper>
         <SelectWrapper>
@@ -44,18 +32,24 @@ export default function FilterBox(props) {
             options={filterPrices}
             placeholder="Price High"
             isSearchable={true}
-            styles={`width:200px;`}
-            onChange={setPriceHigh}
-            defaultValue=""
+            {...price_high}
           />
         </SelectWrapper>
         <SelectWrapper>
           <Select
             options={filterCategories}
             isSearchable={true}
-            onChange={setCategories}
             placeholder="Category"
-            defaultValue=""
+            {...category}
+          />
+        </SelectWrapper>
+        <SelectWrapper>
+          <Select
+            options={filterSortOptions}
+            isSearchable={true}
+            placeholder="Sort"
+            defaultValue="name_ASC"
+            {...sort}
           />
         </SelectWrapper>
       </TextWrapper>
@@ -63,7 +57,7 @@ export default function FilterBox(props) {
         <SecondaryButton
           color="#FF6D00"
           width="200px"
-          link={`/products/search?name=${name.value}&price_low=${price_low}&price_high=${price_high}&category=${category}`}
+          link={`/products/search?name=${name.value}&price_low=${price_low.value}&price_high=${price_high.value}&category=${category.value}&order=${sort.value}`}
           title="Search"
         />
       </ButtonWrapper>
@@ -96,7 +90,9 @@ const TextWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  padding: 10px;
+  @media only screen and (max-width: 1300px) {
+    padding: 10px;
+  }
 `;
 
 const TextFieldFilter = styled.input`

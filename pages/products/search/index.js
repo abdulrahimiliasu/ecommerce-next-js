@@ -7,7 +7,7 @@ import Sticky from "react-stickynode";
 import { graphCmsClient } from "../../../model/graphcms/GraphCMS";
 
 export default function Filter({ result, queries }) {
-  let { name, price_low, price_high, category } = queries;
+  let { name, price_low, price_high, category, order } = queries;
 
   return (
     <Wrapper>
@@ -67,12 +67,11 @@ const Empty = styled.div`
 
 export const getServerSideProps = async (context) => {
   let queries = context.query;
-  let { name, price_low, price_high, category } = queries;
+  let { name, price_low, price_high, category, order } = queries;
   price_low = price_low === "" ? 0 : parseInt(price_low);
   price_high = price_high === "" ? 100000 : parseInt(price_high);
-
   const query = `{
-    products(where: {price_gt: ${price_low}, price_lt: ${price_high}, name_contains: "${name}", categories_every: {name_contains: "${category}"}}) {
+    products(where: {price_gt: ${price_low}, price_lt: ${price_high}, name_contains: "${name}", categories_every: {name_contains: "${category}"}}, orderBy: ${order}) {
       id
       images {
         size
