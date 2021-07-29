@@ -1,6 +1,10 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["images.ctfassets.net", "firebasestorage.googleapis.com"],
+    domains: [
+      "images.ctfassets.net",
+      "firebasestorage.googleapis.com",
+      "media.graphcms.com",
+    ],
   },
 };

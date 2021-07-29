@@ -1,11 +1,10 @@
 import Head from "next/head";
 import ContentSection from "../components/sections/ContentSection";
-import { fetchEntries } from "../model/contentful/Contentful";
 import styled from "styled-components";
 import FilterBox from "../components/forms/FilterBox";
+import { graphCmsClient } from "../model/graphcms/GraphCMS";
 
 export default function Home({ result }) {
-  // console.log(result);
   return (
     <Wrapper>
       <Head>
@@ -34,8 +33,26 @@ export default function Home({ result }) {
   );
 }
 
+const query = `{
+  products {
+    id
+    name
+    price
+    images {
+      size
+      url
+      width
+      height
+    }
+    categories {
+      name
+    }
+  }
+}
+`;
+
 export const getStaticProps = async () => {
-  const result = await fetchEntries({ content_type: "accessories" });
+  const result = await graphCmsClient.request(query);
   return {
     props: { result },
   };

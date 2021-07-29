@@ -9,7 +9,7 @@ export default function ProductCard(props) {
       <ContentWrapper>
         <ImageWrapper>
           <Image
-            src={"https:" + props.thumb_src}
+            src={props.thumb_src}
             width={props.thumb_w}
             height={props.thumb_h}
             alt="product image"

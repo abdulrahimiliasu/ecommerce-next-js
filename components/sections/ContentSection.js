@@ -7,16 +7,16 @@ export default function ContentSection(props) {
   ) : (
     <Wrapper>
       <ContentWrapper>
-        {props.entries.map((item) => (
+        {props.entries.products.map((item) => (
           <ProductCard
-            key={item.sys.id}
-            id={item.sys.id}
-            title={item.fields.name}
-            price={item.fields.price}
-            category={item.fields.category}
-            thumb_src={item.fields.pictures[0].fields.file.url}
-            thumb_w={item.fields.pictures[0].fields.file.details.image.width}
-            thumb_h={item.fields.pictures[0].fields.file.details.image.height}
+            key={item.id}
+            id={item.id}
+            title={item.name}
+            price={item.price}
+            category={item.categories[0].name}
+            thumb_src={item.images[0].url}
+            thumb_w={item.images[0].width}
+            thumb_h={item.images[0].height}
           />
         ))}
       </ContentWrapper>

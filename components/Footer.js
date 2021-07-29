@@ -22,11 +22,11 @@ export default function Footer() {
 
 const Wrapper = styled.div`
   background-color: black;
-  padding: 20px;
+  padding: 15px;
   color: white;
-  height: 50px;
+  height: 100px;
   display: grid;
   grid-template-columns: auto auto auto auto;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 20px;
 `;

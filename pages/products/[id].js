@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { fetchEntry } from "../../model/contentful/Contentful";
 import Gallery from "react-grid-gallery";
 import Sticky from "react-stickynode";
+import { graphCmsClient } from "../../model/graphcms/GraphCMS";
 
 export default function Product({ result, images }) {
   return (
@@ -14,9 +14,11 @@ export default function Product({ result, images }) {
           <div>
             <h1>{result.name}</h1>
             <h2>Price: {result.price} HUF</h2>
-            <h3>Category: {result.category}</h3>
-            <p>Company: {result.company}</p>
-            <p>Color: {result.color}</p>
+            <h2>Categories:</h2>
+            {result.categories.map((cat, idx) => (
+              <h3 key={idx}>{cat.name}</h3>
+            ))}
+            <p>Desc: {result.description}</p>
           </div>
         </Sticky>
       </DetailsWrapper>
@@ -50,10 +52,10 @@ function getImages(pictures) {
   pictures.map((picture) => {
     const obj = {};
     {
-      obj["src"] = `https:${picture.fields.file.url}`;
-      obj["thumbnail"] = `https:${picture.fields.file.url}`;
-      obj["thumbnailWidth"] = 300;
-      obj["thumbnailHeight"] = 300;
+      obj["src"] = picture.url;
+      obj["thumbnail"] = picture.url;
+      obj["thumbnailWidth"] = picture.width;
+      obj["thumbnailHeight"] = picture.height;
     }
     IMAGES.push(obj);
   });
@@ -61,9 +63,25 @@ function getImages(pictures) {
 }
 
 export const getServerSideProps = async (context) => {
-  let id = context.params.id;
-  const result = await fetchEntry(id);
-  const images = getImages(result.pictures);
+  let result = await graphCmsClient.request(` {
+    product(where: {id:"${context.params.id}"}) {
+      id
+      images {
+        url
+        width
+        height
+      }
+      name
+      price
+      categories {
+        id
+        name
+      }
+      description
+    }
+  }`);
+  result = result.product;
+  const images = getImages(result.images);
   return {
     props: { result, images },
   };

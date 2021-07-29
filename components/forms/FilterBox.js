@@ -1,50 +1,69 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 import SecondaryButton from "../buttons/SecondaryButton";
 import useInput from "../hooks/useInput";
-import ComboBox from "../ComboBox";
+import Select from "react-select";
+import { filterPrices, filterCategories, customStyles } from "../../data";
 
 export default function FilterBox(props) {
-  let { vname, vprice_low, vprice_high, vcategory, vcolor } = props.values;
+  let { vname, vprice_low, vprice_high, vcategory } = props.values;
+
   const name = useInput(vname);
-  const price_low = useInput(vprice_low);
-  const price_high = useInput(vprice_high);
-  const category = useInput(vcategory);
-  const color = useInput(vcolor);
+  const [price_low, setPrice_Low] = useState(vprice_low);
+  const [price_high, setPrice_High] = useState(vprice_high);
+  const [category, setCategory] = useState(vcategory);
+
+  const setPriceHigh = (obj) => {
+    setPrice_High(obj.value);
+    vprice_high = obj.value;
+  };
+  const setPriceLow = (obj) => {
+    setPrice_Low(obj.value);
+    vprice_low = obj.value;
+  };
+  const setCategories = (obj) => {
+    setCategory(obj.value);
+    vcategory = obj.value;
+  };
 
   return (
     <Wrapper direction={props.direction}>
       <TextWrapper direction={props.direction}>
         <TextFieldFilter placeholder="Name" {...name} type="search" />
-        <TextFieldFilter
-          placeholder="Price: low"
-          width="150px"
-          {...price_low}
-        />
-        <TextFieldFilter
-          placeholder="Price: high"
-          width="150px"
-          {...price_high}
-        />
-        <ComboBox
-          options={["Any", "Red", "Blue", "Green"]}
-          hook={color}
-          width="100px"
-          title="Colors"
-        />
-        <ComboBox
-          options={["Any", "Case", "Headphones", "Chargers"]}
-          hook={category}
-          width="100px"
-          title="Categories"
-        />
+        <SelectWrapper>
+          <Select
+            options={filterPrices}
+            placeholder="Price Low"
+            isSearchable={true}
+            onChange={setPriceLow}
+            defaultValue=""
+          />
+        </SelectWrapper>
+        <SelectWrapper>
+          <Select
+            options={filterPrices}
+            placeholder="Price High"
+            isSearchable={true}
+            styles={`width:200px;`}
+            onChange={setPriceHigh}
+            defaultValue=""
+          />
+        </SelectWrapper>
+        <SelectWrapper>
+          <Select
+            options={filterCategories}
+            isSearchable={true}
+            onChange={setCategories}
+            placeholder="Category"
+            defaultValue=""
+          />
+        </SelectWrapper>
       </TextWrapper>
       <ButtonWrapper>
         <SecondaryButton
           color="#FF6D00"
           width="200px"
-          link={`/products/search/[filter]`}
-          as={`/products/search/name=${name.value}&price_low=${price_low.value}&price_high=${price_high.value}&category=${category.value}&color=${color.value}`}
+          link={`/products/search?name=${name.value}&price_low=${price_low}&price_high=${price_high}&category=${category}`}
           title="Search"
         />
       </ButtonWrapper>
@@ -53,12 +72,20 @@ export default function FilterBox(props) {
 }
 
 const Wrapper = styled.div`
-  background-color: #2541b2;
+  background-color: black;
   display: flex;
   justify-content: space-around;
   padding: 30px;
   flex-wrap: wrap;
   height: 100%;
+`;
+
+const SelectWrapper = styled.div`
+  width: 200px;
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const TextWrapper = styled.div`
@@ -73,15 +100,14 @@ const ButtonWrapper = styled.div`
 `;
 
 const TextFieldFilter = styled.input`
-  background: white;
-  border-radius: 10px;
-  padding: 10px 20px;
+  border-radius: 5px;
   transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   border: 1px solid gray;
   width: ${(props) => (props.width ? props.width : "200px")};
-  height: 50px;
+  height: 40px;
+  padding: 0px 10px;
   @media only screen and (max-width: 600px) {
-    height: 35px;
+    height: 40px;
     width: 100%;
   }
   font-size: 15px;

@@ -45,13 +45,12 @@ export default function Header() {
 }
 
 const Wrapper = styled.div`
-  background-color: #03256c;
+  background-color: black;
   display: flex;
   padding: 15px 10px;
   align-items: center;
   color: white;
   justify-content: space-between;
-  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
   z-index: 2;
 `;
 
