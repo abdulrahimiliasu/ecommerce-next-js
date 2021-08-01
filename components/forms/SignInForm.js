@@ -108,6 +108,5 @@ const Title = styled.h1`
   font-weight: bold;
   font-size: 40px;
   line-height: 48px;
-  color: #000;
   text-align: center;
 `;

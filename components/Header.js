@@ -3,6 +3,7 @@ import MenuButton from "./buttons/MenuButton";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { firebaseInstance } from "../model/firebase/Firebase";
+import Image from "next/dist/client/image";
 
 export default function Header() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -24,7 +25,10 @@ export default function Header() {
       <Logo>
         <Link href="/">
           <a>
-            <h2>accessorys</h2>
+            <ContentWrapper>
+              <Image src="/favicon.png" width={90} height={50} />
+              <h2>accessorys</h2>
+            </ContentWrapper>
           </a>
         </Link>
       </Logo>
@@ -45,18 +49,14 @@ export default function Header() {
 }
 
 const Wrapper = styled.div`
-  background-color: black;
   display: flex;
   padding: 15px 10px;
   align-items: center;
-  color: white;
   justify-content: space-between;
   z-index: 2;
 `;
 
-const Logo = styled.div`
-  padding: 0px 10px;
-`;
+const Logo = styled.div``;
 const Menu = styled.div`
   display: grid;
   grid-template-columns: auto auto;

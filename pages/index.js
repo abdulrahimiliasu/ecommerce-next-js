@@ -16,6 +16,11 @@ export default function Home({ result }) {
           content="width=device-width, initial-scale=1.0"
         ></meta>
       </Head>
+      <Heading>
+        <h1>
+          Find Anything you need. <br /> All in one place.
+        </h1>
+      </Heading>
       <ContentWrapper>
         <FilterBox
           direction={"1"}
@@ -59,4 +64,12 @@ export const getStaticProps = async () => {
 };
 
 const Wrapper = styled.div``;
-const ContentWrapper = styled.div``;
+const ContentWrapper = styled.div`
+  background-color: white;
+  @media (prefers-color-scheme: dark) {
+    background-color: #212121;
+  }
+`;
+const Heading = styled.div`
+  padding: 20px;
+`;

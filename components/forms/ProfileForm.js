@@ -25,7 +25,7 @@ export default function ProfileForm(props) {
       </ImageWrapper>
       <p>{props.email}</p>
       <UploadButton user_id={props.user_id} />
-      <hr />
+      <br />
       <ContentWrapper>
         <FormWrapper>
           <p>First Name: </p>
@@ -103,7 +103,7 @@ const ImageWrapper = styled.div`
   padding: 20px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
     rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
-  z-index: -1;
+  z-index: 2;
 `;
 
 const TextFieldForm = styled.input`

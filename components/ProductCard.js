@@ -1,45 +1,47 @@
 import * as React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import SecondaryButton from "./buttons/SecondaryButton";
+import Link from "next/link";
 
 export default function ProductCard(props) {
   return (
     <Wrapper>
-      <ContentWrapper>
-        <ImageWrapper>
-          <Image
-            src={props.thumb_src}
-            width={props.thumb_w}
-            height={props.thumb_h}
-            alt="product image"
-          />
-        </ImageWrapper>
-        <TextWrapper>
-          <Title>{props.title}</Title>
-          <SubTitle>{props.price} HUF</SubTitle>
-          <Text>Category: {props.category}</Text>
-        </TextWrapper>
-        <SecondaryButton
-          link={`/products/[id]`}
-          as={`/products/${props.id}`}
-          title={`See Details`}
-        />
-      </ContentWrapper>
+      <Link href={`/products/[id]`} as={`/products/${props.id}`}>
+        <ContentWrapper>
+          <ImageWrapper>
+            <Image
+              src={props.thumb_src}
+              width={props.thumb_w}
+              height={props.thumb_h}
+              alt="product image"
+            />
+          </ImageWrapper>
+          <TextWrapper>
+            <Title>{props.title}</Title>
+            <SubTitle>{props.price} HUF</SubTitle>
+            <Text>Category: {props.category}</Text>
+          </TextWrapper>
+        </ContentWrapper>
+      </Link>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   background-color: white;
+  @media (prefers-color-scheme: dark) {
+    background-color: #424242;
+  }
   border-radius: 20px;
   width: 250px;
   transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
   line-height: 1;
   max-height: 500px;
   border: thin solid white;
+  cursor: pointer;
   :hover {
-    border: thin solid #1768ac;
+    border: thin solid black;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   }
 `;
 
@@ -60,7 +62,6 @@ const TextWrapper = styled.div`
 `;
 
 const Title = styled.h3`
-  color: black;
   font-weight: bold;
   font-size: 15px;
 `;

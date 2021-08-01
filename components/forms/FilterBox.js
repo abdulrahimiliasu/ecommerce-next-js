@@ -24,7 +24,7 @@ export default function FilterBox(props) {
             options={filterPrices}
             placeholder="Price Low"
             isSearchable={true}
-            {...price_low}
+            onChange={price_low.onChange}
           />
         </SelectWrapper>
         <SelectWrapper>
@@ -32,7 +32,7 @@ export default function FilterBox(props) {
             options={filterPrices}
             placeholder="Price High"
             isSearchable={true}
-            {...price_high}
+            onChange={price_high.onChange}
           />
         </SelectWrapper>
         <SelectWrapper>
@@ -40,7 +40,7 @@ export default function FilterBox(props) {
             options={filterCategories}
             isSearchable={true}
             placeholder="Category"
-            {...category}
+            onChange={category.onChange}
           />
         </SelectWrapper>
         <SelectWrapper>
@@ -49,7 +49,7 @@ export default function FilterBox(props) {
             isSearchable={true}
             placeholder="Sort"
             defaultValue="name_ASC"
-            {...sort}
+            onChange={sort.onChange}
           />
         </SelectWrapper>
       </TextWrapper>
@@ -66,17 +66,15 @@ export default function FilterBox(props) {
 }
 
 const Wrapper = styled.div`
-  background-color: black;
   display: flex;
   justify-content: space-around;
   padding: 30px;
   flex-wrap: wrap;
-  height: 100%;
 `;
 
 const SelectWrapper = styled.div`
   width: 200px;
-
+  color: black;
   @media only screen and (max-width: 600px) {
     width: 100%;
   }
@@ -87,6 +85,7 @@ const TextWrapper = styled.div`
   flex-wrap: wrap;
   gap: 10px;
   flex-direction: ${(props) => (props.direction ? "row" : "column")};
+  padding-bottom: ${(props) => (props.direction ? "0px" : "10px")};
 `;
 
 const ButtonWrapper = styled.div`
