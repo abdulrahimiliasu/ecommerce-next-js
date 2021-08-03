@@ -27,7 +27,7 @@ export default function ContentSection(props) {
 const Wrapper = styled.div`
   background-color: #f0f0f0;
   @media (prefers-color-scheme: dark) {
-    background-color: #757575;
+    background-color: #313131;
   }
   border-radius: 20px;
 `;

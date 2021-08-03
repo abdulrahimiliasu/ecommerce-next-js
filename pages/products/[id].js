@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Gallery from "react-grid-gallery";
 import Sticky from "react-stickynode";
-import { graphCmsClient } from "../../model/graphcms/GraphCMS";
+import { graphCmsClient } from "../../model/graphcms-config";
 
 export default function Product({ result, images }) {
   return (
@@ -44,7 +44,11 @@ const DetailsWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   height: 100vh;
-  background-color: #f0f0f0;
+  background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #313131;
+  }
 `;
 
 function getImages(pictures) {

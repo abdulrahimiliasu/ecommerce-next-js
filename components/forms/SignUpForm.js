@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import TextField from "../TextField";
 import useInput from "../hooks/useInput";
@@ -8,35 +8,33 @@ import { useRouter } from "next/dist/client/router";
 import {
   firebaseInstance,
   addUserProfileInfo,
-} from "../../model/firebase/Firebase";
+} from "../../model/firebase-config";
 import FormButton from "../buttons/FormButton";
-import { useState } from "react";
 import ReactLoading from "react-loading";
+import useTranslation from "next-translate/useTranslation";
 
 export default function SignUpForm() {
   const email = useInput("");
   const password = useInput("");
   const router = useRouter();
   const [signingUp, setSigningUp] = useState(false);
+  let { t } = useTranslation();
 
   const sendEmailVerification = () => {
     firebaseInstance
       .auth()
       .currentUser.sendEmailVerification()
       .then(() => {
-        cogoToast.success(
-          "Successfully created account please verify your email to continue",
-          {
-            position: "top-left",
-          }
-        );
+        cogoToast.success(t("forms:successcreateaccount"), {
+          position: "top-left",
+        });
       });
   };
 
   const submitForm = async (event) => {
     event.preventDefault();
     if (email.value == "" || password.value == "") {
-      cogoToast.error("Email or Password Cannot be Empty");
+      cogoToast.error(t("forms:empty"));
     } else {
       setSigningUp(true);
       try {
@@ -59,22 +57,27 @@ export default function SignUpForm() {
 
   return (
     <FormWrapper onSubmit={submitForm}>
-      <Title>Sign Up</Title>
-      <TextField placeholder="Email" type="email" hook={email} width="300px" />
+      <Title>{t("forms:signup")}</Title>
       <TextField
-        placeholder="Password"
+        placeholder={t("forms:email")}
+        type="email"
+        hook={email}
+        width="300px"
+      />
+      <TextField
+        placeholder={t("forms:password")}
         type="password"
         hook={password}
         width="300px"
       />
       <Link href="/signin">
         <a>
-          <Text>Already have an account ?</Text>
+          <Text>{t("forms:alreadyhaveaccount")}</Text>
         </a>
       </Link>
       <FormButton
         type="submit"
-        title={signingUp ? "Creating Account ..." : "Create account"}
+        title={signingUp ? "Creating Account ..." : t("forms:createaccount")}
       />
       <Center>
         {signingUp ? <ReactLoading color="black" type="bars" /> : <></>}

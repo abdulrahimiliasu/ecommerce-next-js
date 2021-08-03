@@ -4,7 +4,7 @@ import styled from "styled-components";
 import FilterBox from "../../../components/forms/FilterBox";
 import React from "react";
 import Sticky from "react-stickynode";
-import { graphCmsClient } from "../../../model/graphcms/GraphCMS";
+import { graphCmsClient } from "../../../model/graphcms-config";
 
 export default function Filter({ result, queries }) {
   let { name, price_low, price_high, category, order } = queries;

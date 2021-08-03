@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function MenuButton(props) {
   return (
-    <Link href={props.link} as={props.as}>
+    <Link href={props.link} as={props.as} locale={props.locale}>
       <MenuItem title={props.title} width={props.width}>
         {props.title}
       </MenuItem>
@@ -18,7 +18,7 @@ const MenuItem = styled.div`
   border-radius: 10px;
   transition: 0.5s ease-out;
   cursor: pointer;
-  width: ${(props) => (props.width ? props.width : "100%")};
+  /* width: ${(props) => (props.width ? props.width : "100px")}; */
   :hover {
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1),

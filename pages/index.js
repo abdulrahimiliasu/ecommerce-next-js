@@ -2,23 +2,22 @@ import Head from "next/head";
 import ContentSection from "../components/sections/ContentSection";
 import styled from "styled-components";
 import FilterBox from "../components/forms/FilterBox";
-import { graphCmsClient } from "../model/graphcms/GraphCMS";
+import { graphCmsClient } from "../model/graphcms-config";
+import useTranslation from "next-translate/useTranslation";
 
 export default function Home({ result }) {
+  let { t } = useTranslation();
   return (
     <Wrapper>
       <Head>
         <title>Accessorys</title>
         <meta name="description" content="An Accessories Ecommerce Site." />
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0"
-        ></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Heading>
         <h1>
-          Find Anything you need. <br /> All in one place.
+          {t("common:Heading")} <br />
         </h1>
       </Heading>
       <ContentWrapper>
@@ -56,7 +55,7 @@ const query = `{
 }
 `;
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const result = await graphCmsClient.request(query);
   return {
     props: { result },

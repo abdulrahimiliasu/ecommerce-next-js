@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import useInput from "../hooks/useInput";
-import { updateUserProfileInfo, signOut } from "../../model/firebase/Firebase";
+import { updateUserProfileInfo, signOut } from "../../model/firebase-config";
 import FormButton from "../buttons/FormButton";
 import UploadButton from "../buttons/UploadButton";
 import { useState } from "react";
+import useTranslation from "next-translate/useTranslation";
 
 export default function ProfileForm(props) {
   const fname = useInput(props.data.first_name);
@@ -11,6 +12,7 @@ export default function ProfileForm(props) {
   const address_ = useInput(props.data.address);
   const age_ = useInput(props.data.age);
   const [editMode, setEditMode] = useState(true);
+  let { t } = useTranslation();
 
   return (
     <Wrapper>
@@ -28,19 +30,19 @@ export default function ProfileForm(props) {
       <br />
       <ContentWrapper>
         <FormWrapper>
-          <p>First Name: </p>
+          <p>{t("forms:firstname")}: </p>
           <TextFieldForm {...fname} disabled={editMode} />
         </FormWrapper>
         <FormWrapper>
-          <p>Last Name: </p>
+          <p>{t("forms:lastname")}: </p>
           <TextFieldForm {...lname} disabled={editMode} />
         </FormWrapper>
         <FormWrapper>
-          <p>Address: </p>
+          <p>{t("forms:address")}: </p>
           <TextFieldForm {...address_} disabled={editMode} />
         </FormWrapper>
         <FormWrapper>
-          <p>Age: </p>
+          <p>{t("forms:age")}: </p>
           <TextFieldForm {...age_} disabled={editMode} />
         </FormWrapper>
       </ContentWrapper>
@@ -59,9 +61,9 @@ export default function ProfileForm(props) {
             setEditMode(!editMode);
           }
         }}
-        title={editMode ? "Edit" : "Save"}
+        title={editMode ? t("forms:edit") : t("forms:save")}
       />
-      <FormButton onClick={() => signOut()} title="Sign out" />
+      <FormButton onClick={() => signOut()} title={t("forms:signout")} />
     </Wrapper>
   );
 }

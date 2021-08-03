@@ -21,3 +21,13 @@ export const filterSortOptions = [
   { value: "price_ASC", label: "price low-high" },
   { value: "price_DESC", label: "price high-low" },
 ];
+
+export const theme = {
+  light: {
+    primarycolor: "black",
+    backgroundcolor: "#f0f0f0",
+  },
+  dark: {
+    backgroundscolor: "#212121",
+  },
+};

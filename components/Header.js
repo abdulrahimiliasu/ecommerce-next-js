@@ -2,11 +2,15 @@ import styled from "styled-components";
 import MenuButton from "./buttons/MenuButton";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { firebaseInstance } from "../model/firebase/Firebase";
+import { firebaseInstance } from "../model/firebase-config";
 import Image from "next/dist/client/image";
+import { useRouter } from "next/dist/client/router";
+import useTranslation from "next-translate/useTranslation";
 
 export default function Header() {
   const [currentUser, setCurrentUser] = useState(null);
+  const { locales, asPath } = useRouter();
+  let { t } = useTranslation();
 
   useEffect(() => {
     if (firebaseInstance) {
@@ -26,21 +30,29 @@ export default function Header() {
         <Link href="/">
           <a>
             <ContentWrapper>
-              <Image src="/favicon.png" width={90} height={50} />
+              <Image src="/favicon.png" width={90} height={50} alt="logo" />
               <h2>accessorys</h2>
             </ContentWrapper>
           </a>
         </Link>
       </Logo>
       <Menu>
+        {locales.map((locale, index) => (
+          <MenuButton
+            key={index}
+            link={asPath}
+            locale={locale}
+            title={locale}
+          />
+        ))}
         {currentUser ? (
           <ContentWrapper>
-            <MenuButton link="/account" title="Account" />
+            <MenuButton link="/account" title={t("forms:account")} />
           </ContentWrapper>
         ) : (
           <ContentWrapper>
-            <MenuButton link="/signin" title="Sign In" />
-            <MenuButton link="/signup" title="Sign Up" />
+            <MenuButton link="/signin" title={t("forms:signin")} />
+            <MenuButton link="/signup" title={t("forms:signup")} />
           </ContentWrapper>
         )}
       </Menu>
@@ -58,11 +70,10 @@ const Wrapper = styled.div`
 
 const Logo = styled.div``;
 const Menu = styled.div`
-  display: grid;
-  grid-template-columns: auto auto;
+  display: flex;
+  flex-direction: row;
 `;
 
 const ContentWrapper = styled.div`
-  display: grid;
-  grid-template-columns: auto auto;
+  display: flex;
 `;

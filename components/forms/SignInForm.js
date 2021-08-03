@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import getFirebase from "../../model/firebase/Firebase";
+import getFirebase from "../../model/firebase-config";
 import useInput from "../hooks/useInput";
 import cogoToast from "cogo-toast";
 import TextField from "../TextField";
@@ -8,6 +8,7 @@ import { useRouter } from "next/dist/client/router";
 import FormButton from "../buttons/FormButton";
 import { useState } from "react";
 import ReactLoading from "react-loading";
+import useTranslation from "next-translate/useTranslation";
 
 const SignInForm = () => {
   const firebaseInstance = getFirebase();
@@ -15,13 +16,14 @@ const SignInForm = () => {
   const password = useInput("");
   const router = useRouter();
   const [signingIn, setSigningIn] = useState(false);
+  let { t } = useTranslation();
 
   const forgotPassword = () => {
     firebaseInstance
       .auth()
       .sendPasswordResetEmail(email.value)
       .then(() => {
-        cogoToast.success("Password reset email sent!");
+        cogoToast.success(t("forms:passwordreset"));
       })
       .catch((error) => {
         cogoToast.error(error.message);
@@ -31,7 +33,7 @@ const SignInForm = () => {
   const signIn = async (event) => {
     event.preventDefault();
     if (email.value === "" || password.value === "")
-      cogoToast.error("Email or Password Cannot be empty!");
+      cogoToast.error(t("forms:empty"));
     else {
       setSigningIn(true);
       try {
@@ -41,7 +43,7 @@ const SignInForm = () => {
             .signInWithEmailAndPassword(email.value, password.value)
             .then((authUser) => {
               if (authUser) {
-                cogoToast.success("Successfully Logged In");
+                cogoToast.success(t("forms:successlogin"));
                 router.push("/account");
               }
             });
@@ -56,24 +58,27 @@ const SignInForm = () => {
   return (
     <Wrapper>
       <FormWrapper onSubmit={signIn}>
-        <Title>Sign in</Title>
+        <Title>{t("forms:signin")}</Title>
         <TextField
-          placeholder="Email"
+          placeholder={t("forms:email")}
           type="email"
           hook={email}
           width="300px"
         />
         <TextField
-          placeholder="Password"
+          placeholder={t("forms:password")}
           type="password"
           hook={password}
           width="300px"
         />
         <FormButton
           type="submit"
-          title={signingIn ? "Signinig In" : "Sign in"}
+          title={signingIn ? "Signinig In" : t("forms:signin")}
         />
-        <FormButton title="Forgot password" onClick={forgotPassword} />
+        <FormButton
+          title={t("forms:forgotpassword")}
+          onClick={forgotPassword}
+        />
         <Center>
           {signingIn ? <ReactLoading color="black" type="bars" /> : <></>}
         </Center>

@@ -2,19 +2,19 @@ import React, { useRef } from "react";
 import {
   firebaseInstance,
   updateUserProfileInfo,
-} from "../../model/firebase/Firebase";
+} from "../../model/firebase-config";
 import FormButton from "./FormButton";
 import cogoToast from "cogo-toast";
-import { useRouter } from "next/dist/client/router";
+import useTranslation from "next-translate/useTranslation";
 
 const UploadButton = (props) => {
   const ref = useRef(null);
-  const router = useRouter();
   const handleClick = () => {
     if (ref) {
       return ref.current?.click();
     }
   };
+  let { t } = useTranslation();
 
   const handleUpload = async (event) => {
     if (!firebaseInstance) return;
@@ -23,7 +23,7 @@ const UploadButton = (props) => {
     console.log(uploadedImage);
     if (!uploadedImage) return;
 
-    cogoToast.loading("Uploading and Saving Picture", { hideAfter: 1 });
+    cogoToast.loading(t("forms:uploadingandsaving"), { hideAfter: 1 });
     const storage = firebaseInstance.storage();
     const storageRef = storage.ref("avatars");
 
@@ -36,11 +36,10 @@ const UploadButton = (props) => {
           updateUserProfileInfo(props.user_id, { avatar_url: url });
         })
         .then(
-          cogoToast.success("Successfully Uploaded Profile Picture", {
+          cogoToast.success(t("forms:successuploading"), {
             hideAfter: 1,
           })
         );
-      // .then(router.reload("/account"));
     } catch (error) {
       cogoToast.error(error.message);
     }
@@ -48,14 +47,11 @@ const UploadButton = (props) => {
 
   return (
     <div>
-      <FormButton
-        onClick={() => handleClick()}
-        title="Upload Profile Picture"
-      />
+      <FormButton onClick={() => handleClick()} title={t("forms:upload")} />
       <input
         type="file"
         ref={ref}
-        accept=".png, .jpg, .jpeg"
+        accept=".png, .jpg, .jpeg, .heic"
         hidden
         onChange={handleUpload}
       />

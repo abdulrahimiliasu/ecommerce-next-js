@@ -1,14 +1,16 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { firebaseInstance } from "../model/firebase/Firebase";
+import { firebaseInstance } from "../model/firebase-config";
 import ProfileForm from "../components/forms/ProfileForm";
 import Link from "next/link";
 import cogoToast from "cogo-toast";
 import ReactLoading from "react-loading";
+import useTranslation from "next-translate/useTranslation";
 
 export default function Account() {
   const [currentUser, setCurrentUser] = useState(null);
   const [userData, setUserData] = useState(null);
+  let { t } = useTranslation();
 
   useEffect(() => {
     if (firebaseInstance) {
@@ -48,7 +50,7 @@ export default function Account() {
                 <></>
               ) : (
                 <Warn>
-                  <p>Account not verified, please check your email inbox !</p>
+                  <p>{t("forms:accountnotverified")}</p>
                 </Warn>
               )}
 
@@ -64,7 +66,7 @@ export default function Account() {
         <Empty>
           <Link href="/signin">
             <a>
-              <h2>Please Sign in to access your account</h2>
+              <h2>{t("forms:signinfirst")}</h2>
             </a>
           </Link>
         </Empty>
